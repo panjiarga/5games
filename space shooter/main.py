@@ -39,9 +39,25 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # enable quit
             running = False
-        #if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+        #if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
+        #    player_speed=player_speed*0.5
+        #else:
+        #    player_speed=500
         #   player_rect.bottom = WINDOW_HEIGHT
-        
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_DOWN]:
+        player_rect.y += player_speed * dt
+        if player_speed>=300:
+            player_speed -= 1
+    else:
+        player_speed = 500
+    if keys[pygame.K_RIGHT]:
+        player_direction.x = 1
+    if keys[pygame.K_LEFT]:
+        player_direction.x = -1
+    if keys[pygame.K_UP]:
+        player_rect.y -= player_speed * dt    
 
     # draw the game, order matters, last will be top
     display_surface.fill('cyan4')
@@ -53,7 +69,7 @@ while running:
         # y_star = random.randint(0,WINDOW_HEIGHT)
     
     for i in range(star_amount):
-        star_positions[i][1] += (player_speed*dt*0.8)
+        star_positions[i][1] += (player_speed*dt)
         if star_positions[i][1] > WINDOW_HEIGHT:
             star_positions[i][1] = 0
             star_positions[i][0] = randint(0,WINDOW_WIDTH)
@@ -71,15 +87,7 @@ while running:
     #    player_rect.bottom = WINDOW_HEIGHT
     #if (player_rect.left <= 0) or (player_rect.right >= WINDOW_WIDTH): 
     #    player_direction.x *= -1
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_RIGHT]:
-        player_direction.x = 1
-    if keys[pygame.K_LEFT]:
-        player_direction.x = -1
-    if keys[pygame.K_DOWN]:
-        player_rect.y += player_speed * dt 
-    if keys[pygame.K_UP]:
-        player_rect.y -= player_speed * dt
+    
         
     player_rect.center += player_direction * player_speed * dt
     if player_rect.right > WINDOW_WIDTH:
