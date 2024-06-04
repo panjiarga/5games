@@ -91,8 +91,6 @@ while running:
     
     all_sprites.draw(display_surface)
 
-   
-    
     pygame.display.update() # flip() update some part of the window
     
 pygame.quit()
